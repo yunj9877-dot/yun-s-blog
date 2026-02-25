@@ -162,18 +162,8 @@ export default function TermsPage() {
                                 </p>
                             </div>
 
-                            <div className="bg-slate-900/40 border border-slate-800 rounded-xl p-6 mt-8">
-                                <h3 className="text-lg font-semibold text-white mb-3">📮 문의</h3>
-                                <p>
-                                    개인정보 관련 문의 사항이 있으시면 아래 연락처로 문의해 주시기 바랍니다.
-                                </p>
-                                <p className="mt-3 text-slate-400">
-                                    이메일: <span className="text-blue-400">yunj9877@gmail.com</span>
-                                </p>
-                            </div>
-
                             <p className="text-sm text-slate-500 mt-8">
-                                본 약관 및 개인정보 처리방침은 2024년 1월 1일부터 시행됩니다.
+                                본 약관 및 개인정보 처리방침은 2026년 2월 25일부터 시행됩니다.
                             </p>
                         </div>
                     </section>
