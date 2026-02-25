@@ -46,7 +46,7 @@ export default async function LoginPage({
                                 <label className="text-sm font-medium text-gray-300 block" htmlFor="password">
                                     비밀번호
                                 </label>
-                                <Link href="#" className="text-sm text-blue-500 hover:text-blue-400 font-medium transition-colors">
+                                <Link href="/forgot-password" className="text-sm text-blue-500 hover:text-blue-400 font-medium transition-colors">
                                     비밀번호 찾기
                                 </Link>
                             </div>
