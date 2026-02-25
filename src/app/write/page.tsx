@@ -52,7 +52,7 @@ function WritePageContent() {
     const [imageUrl, setImageUrl] = useState('https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=800&auto=format&fit=crop')
     const [publishing, setPublishing] = useState(false)
     const [activeTab, setActiveTab] = useState<'write' | 'preview'>('write')
-    const [showSettings, setShowSettings] = useState(false)
+    const [showSettings, setShowSettings] = useState(true)
     const [saved, setSaved] = useState(false)
     const [authChecked, setAuthChecked] = useState(false)
     const [uploading, setUploading] = useState(false)
