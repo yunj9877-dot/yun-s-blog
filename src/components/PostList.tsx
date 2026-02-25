@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { BlogCard } from './BlogCard'
-import { Mail } from 'lucide-react'
 
 interface Post {
     id: string
@@ -22,9 +21,10 @@ interface PostListProps {
     currentPage: number
     totalPosts: number
     itemsPerPage: number
+    searchQuery: string | null
 }
 
-export function PostList({ posts, categories, activeCategory, currentPage, totalPosts, itemsPerPage }: PostListProps) {
+export function PostList({ posts, categories, activeCategory, currentPage, totalPosts, itemsPerPage, searchQuery }: PostListProps) {
     const totalPages = Math.ceil(totalPosts / itemsPerPage)
 
     const buildUrl = (params: { category?: string | null; page?: number }) => {
@@ -50,6 +50,17 @@ export function PostList({ posts, categories, activeCategory, currentPage, total
                         현대 소프트웨어 개발을 위한 기술 심층 분석, 아키텍처 패턴 및 실전 팁을 공유합니다.
                     </p>
                 </div>
+
+                {searchQuery && (
+                    <div className="mb-8 flex items-center gap-3">
+                        <p className="text-slate-400">
+                            <span className="text-white font-semibold">&quot;{searchQuery}&quot;</span> 검색 결과: {totalPosts}건
+                        </p>
+                        <Link href="/" className="text-sm text-blue-400 hover:text-blue-300 transition-colors">
+                            ✕ 초기화
+                        </Link>
+                    </div>
+                )}
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
                     {posts.map((post) => (
@@ -138,27 +149,6 @@ export function PostList({ posts, categories, activeCategory, currentPage, total
                                 # {category}
                             </Link>
                         ))}
-                    </div>
-                </div>
-
-                <div className="bg-gradient-to-br from-blue-900/30 to-slate-900/40 border border-blue-900/50 rounded-xl p-6 relative overflow-hidden group hover:border-blue-500/30 transition-colors">
-                    <div className="absolute -right-6 -top-6 w-24 h-24 bg-blue-600/20 rounded-full blur-2xl group-hover:bg-blue-500/30 transition-colors"></div>
-                    <h3 className="text-xl font-bold text-white mb-2 flex items-center gap-2">
-                        <Mail className="w-5 h-5 text-blue-400" />
-                        주간 브리핑
-                    </h3>
-                    <p className="text-slate-400 text-sm mb-6">
-                        가장 빠른 엔지니어링 소식, 튜토리얼을 메일로 받아보세요.
-                    </p>
-                    <div className="space-y-3">
-                        <input
-                            type="email"
-                            placeholder="이메일 주소 입력"
-                            className="w-full bg-slate-950/50 border border-slate-700 rounded-lg px-4 py-2.5 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                        />
-                        <button className="w-full bg-blue-600 hover:bg-blue-500 text-white font-medium rounded-lg px-4 py-2.5 text-sm transition-colors shadow-lg shadow-blue-500/20">
-                            구독하기
-                        </button>
                     </div>
                 </div>
             </div>

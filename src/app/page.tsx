@@ -6,7 +6,7 @@ import { createClient } from '@/utils/supabase/server'
 const ITEMS_PER_PAGE = 4
 
 interface HomeProps {
-  searchParams: Promise<{ category?: string; page?: string }>
+  searchParams: Promise<{ category?: string; page?: string; q?: string }>
 }
 
 export default async function Home({ searchParams }: HomeProps) {
@@ -15,6 +15,7 @@ export default async function Home({ searchParams }: HomeProps) {
 
   const activeCategory = params.category || null
   const currentPage = Number(params.page) || 1
+  const searchQuery = params.q || null
 
   // 게시글 조회 (서버 사이드)
   let query = supabase
@@ -24,6 +25,10 @@ export default async function Home({ searchParams }: HomeProps) {
 
   if (activeCategory) {
     query = query.eq('category', activeCategory)
+  }
+
+  if (searchQuery) {
+    query = query.or(`title.ilike.%${searchQuery}%,content.ilike.%${searchQuery}%,excerpt.ilike.%${searchQuery}%`)
   }
 
   const from = (currentPage - 1) * ITEMS_PER_PAGE
@@ -48,6 +53,7 @@ export default async function Home({ searchParams }: HomeProps) {
           currentPage={currentPage}
           totalPosts={count || 0}
           itemsPerPage={ITEMS_PER_PAGE}
+          searchQuery={searchQuery}
         />
       </main>
       <Footer />

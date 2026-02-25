@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { Command, LayoutGrid, PenLine } from 'lucide-react'
 import { createClient } from '@/utils/supabase/client'
 import { useEffect, useState } from 'react'
@@ -8,6 +9,8 @@ import { User } from '@supabase/supabase-js'
 
 export function Navbar() {
     const [user, setUser] = useState<User | null>(null)
+    const [searchQuery, setSearchQuery] = useState('')
+    const router = useRouter()
     const supabase = createClient()
 
     useEffect(() => {
@@ -27,6 +30,12 @@ export function Navbar() {
     const handleSignOut = async () => {
         await supabase.auth.signOut()
         window.location.reload()
+    }
+
+    const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter' && searchQuery.trim()) {
+            router.push(`/?q=${encodeURIComponent(searchQuery.trim())}`)
+        }
     }
 
     return (
@@ -53,6 +62,9 @@ export function Navbar() {
                             </div>
                             <input
                                 type="text"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                                onKeyDown={handleSearch}
                                 className="block w-full pl-10 pr-12 py-2 border border-slate-800 rounded-full leading-5 bg-slate-900/50 text-slate-300 placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm selection:bg-blue-500/30"
                                 placeholder="기사 검색..."
                             />
@@ -66,14 +78,6 @@ export function Navbar() {
 
                     {/* Nav Links & Auth */}
                     <div className="flex items-center gap-6">
-                        <div className="hidden sm:flex items-center gap-6">
-                            <Link href="#" className="text-sm font-medium text-slate-300 hover:text-white transition-colors">
-                                최신 글
-                            </Link>
-                            <Link href="#" className="text-sm font-medium text-slate-400 hover:text-white transition-colors">
-                                뉴스레터
-                            </Link>
-                        </div>
 
                         <div className="flex items-center gap-3 border-l border-slate-800 pl-6 ml-2">
                             {user ? (

@@ -15,10 +15,7 @@ export function Footer() {
                     </div>
 
                     <div className="flex items-center gap-6 text-sm font-medium">
-                        <Link href="#" className="hover:text-white transition-colors">트위터</Link>
-                        <Link href="#" className="hover:text-white transition-colors">깃허브</Link>
-                        <Link href="#" className="hover:text-white transition-colors">RSS 피드</Link>
-                        <Link href="#" className="hover:text-white transition-colors">이용약관 및 정책</Link>
+                        <Link href="/terms" className="hover:text-white transition-colors">이용약관 및 정책</Link>
                     </div>
                 </div>
             </div>
